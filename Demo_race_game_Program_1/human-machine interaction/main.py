@@ -1,12 +1,10 @@
 import cv2
 import numpy as np
-# from evdev import UInput, ecodes as e
 from deepgaze.deepgaze.color_detection import MultiBackProjectionColorDetector
 from deepgaze.deepgaze.mask_analysis import BinaryMaskAnalyser
 from pynput.keyboard import Key, Controller
 
 # Declare the simulated keyboard object
-# ui = UInput()
 keyboard = Controller()
 # Enable or disable the keyboard simulation (enabled when press 'a')
 ENABLE_CAPTURE = False
@@ -94,6 +92,5 @@ while True:
 
 # Close the keyboard object
 
-# Release the camera
 video_capture.release()
 print("Bye")
