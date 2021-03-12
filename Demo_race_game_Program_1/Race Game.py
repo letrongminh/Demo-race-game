@@ -87,7 +87,7 @@ def text_objects(text, font, color=black):
 #     game_loop()
 
 
-# action when PLAYER touch virus or corners
+# action when player touch virus or corners
 def crash():
     pygame.mixer.Sound.play(crash_sound)
     pygame.mixer.music.stop()
@@ -424,7 +424,7 @@ def game_loop():
         clock.tick(FPS)
 
 
-# Let's start our COVID Race Game
+# Let's start Race Game
 game_intro()
 game_loop()
 quitgame()
