@@ -38,7 +38,7 @@ point = pygame.mixer.Sound("gallery/audio/point.wav")
 
 # required sprites
 BACKGROUND = pygame.image.load('gallery/sprites/background.jpg').convert()
-#DC = pygame.image.load('gallery/sprites/minhdeptrai.png').convert_alpha()
+DC = pygame.image.load('gallery/sprites/minhdeptrai.png').convert_alpha()
 virus = pygame.image.load('gallery/sprites/virus.png').convert_alpha()
 health = pygame.image.load('gallery/sprites/health.png').convert_alpha()
 blank = pygame.image.load('gallery/sprites/blank.jpg').convert_alpha()
@@ -200,7 +200,7 @@ def game_intro():
                 quitgame()
 
         gameDisplay.fill(black)
-        #gameDisplay.blit(DC, (100, 90))
+        gameDisplay.blit(DC, (100, 90))
         largeText = pygame.font.SysFont("Cooper Black", 95)
         TextSurf, TextRect = text_objects("Race", largeText, white)
         TextRect.center = ((display_width / 2), (display_height / 2))
