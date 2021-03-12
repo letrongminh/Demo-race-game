@@ -1,12 +1,9 @@
-# import required packages
 import pygame
 import time
 import random
 
-# Initialize
 pygame.init()
 
-# Global Variables for the game
 FPS = 60
 SCREENWIDTH = 800
 SCREENHEIGHT = 600
@@ -49,7 +46,7 @@ gameIcon = pygame.image.load('gallery/sprites/user11.png')
 pygame.display.set_icon(gameIcon)
 
 
-# shows PLAYER strength value
+# shows player strength value
 def things_dodged(count):
     font = pygame.font.SysFont("Times New Roman", 20)
     text = font.render("  STRENGTH   " + str(count), True, bright_red)
@@ -63,7 +60,7 @@ def things(thingx, thingy, thingw, thingh, color):
     # pygame.draw.rect(gameDisplay, color, [thingx, thingy, thingw, thingh])
 
 
-# set the PLAYER position
+# set the player position
 def player(x, y):
     gameDisplay.blit(PLAYER, (x, y))
 
@@ -72,20 +69,6 @@ def player(x, y):
 def text_objects(text, font, color=black):
     textSurface = font.render(text, True, color)
     return textSurface, textSurface.get_rect()
-
-
-# def message_display(text):
-#     largeText = pygame.font.SysFont("comicsansms",115)
-#     TextSurf, TextRect = text_objects(text,largeText)
-#     TextRect.center = ((display_width/2,(display_height/2)))
-#     gameDisplay.blit(TextSurf,TextRect)
-
-#     pygame.display.update()
-
-#     time.sleep(2)
-
-#     game_loop()
-
 
 # action when player touch virus or corners
 def crash():
@@ -177,7 +160,7 @@ def paused():
         clock.tick(15)
 
 
-# audio when PLAYER touches health
+# audio when  touches health
 def power():
     pygame.mixer.Sound.play(power_up)
     pygame.mixer.music.stop()
