@@ -38,7 +38,7 @@ point = pygame.mixer.Sound("gallery/audio/point.wav")
 # required sprites
 BACKGROUND = pygame.image.load('gallery/sprites/background_n.png').convert()
 DC = pygame.image.load('gallery/sprites/minh_and_ilia.png').convert_alpha()
-virus = pygame.image.load('gallery/sprites/virus.png').convert_alpha()
+virus = pygame.image.load('gallery/sprites/virus3.png').convert_alpha()
 health = pygame.image.load('gallery/sprites/health.png').convert_alpha()
 blank = pygame.image.load('gallery/sprites/blank.jpg').convert_alpha()
 police = pygame.image.load('gallery/sprites/police.png').convert_alpha()
@@ -69,8 +69,9 @@ def player(x, y):
 
 # display any text objects
 def text_objects(text, font, color=black):
-    textSurface = font.render(text, True, color)
-    return textSurface, textSurface.get_rect()
+    text_surface = font.render(text, True, color)
+    return text_surface, text_surface.get_rect()
+
 
 # action when PLAYER touch virus or corners
 def crash():
@@ -82,25 +83,28 @@ def crash():
     pygame.mixer.music.load('gallery/audio/dead.wav')
     pygame.mixer.music.play(-1)
 
-    largeText = pygame.font.SysFont("Times New Roman", 88)
-    TextSurf, TextRect = text_objects("YOU ARE DEAD!", largeText, black)
-    TextRect.center = ((display_width / 2), (display_height / 2))
-    gameDisplay.blit(TextSurf, TextRect)
+    large_text = pygame.font.SysFont("Times New Roman", 88)
+    text_surf, text_rect = text_objects("YOU ARE DEAD!", large_text, black)
+    text_rect.center = ((display_width / 2), (display_height / 2))
+    gameDisplay.blit(text_surf, text_rect)
 
     while True:
         for event in pygame.event.get():
             # print(event)
             if event.type == pygame.QUIT:
                 pygame.quit()
-                quit()
+                # quit()
+            if event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_SPACE:
+                    game_loop()
 
         # gameDisplay.fill(white)
 
         button("Play Again", (display_width / 2) - 250, 600, 100, 50, green, bright_green, game_loop)
-        button("Quit", (display_width / 2) + 250-100, 600, 100, 50, red, bright_red, quitgame)
+        button("Quit", (display_width / 2) + 250 - 100, 600, 100, 50, red, bright_red, quit_game)
 
         pygame.display.update()
-        clock.tick(15)
+        clock.tick(10)
 
 
 # required buttons
@@ -116,14 +120,14 @@ def button(msg, x, y, w, h, ic, ac, action=None):
     else:
         pygame.draw.rect(gameDisplay, ic, (x, y, w, h))
 
-    smallText = pygame.font.SysFont("comicsansms", 20)
+    smallText = pygame.font.SysFont("Times New Roman", 20)
     textSurf, textRect = text_objects(msg, smallText)
     textRect.center = ((x + (w / 2)), (y + (h / 2)))
     gameDisplay.blit(textSurf, textRect)
 
 
 # close the game
-def quitgame():
+def quit_game():
     pygame.quit()
     quit()
 
@@ -149,14 +153,14 @@ def paused():
         for event in pygame.event.get():
             # print(event)
             if event.type == pygame.QUIT:
-                quitgame()
+                quit_game()
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_SPACE:
                     unpause()
 
         # gameDisplay.fill(white)
         button("Continue", (display_width / 2) - 250, 450, 100, 50, green, bright_green, unpause)
-        button("Quit", (display_width / 2) + 250-100, 450, 100, 50, red, bright_red, quitgame)
+        button("Quit", (display_width / 2) + 250 - 100, 450, 100, 50, red, bright_red, quit_game)
 
         pygame.display.update()
         clock.tick(15)
@@ -182,26 +186,25 @@ def game_intro():
         for event in pygame.event.get():
             # print(event)
             if event.type == pygame.QUIT:
-                quitgame()
+                quit_game()
 
         gameDisplay.fill(black)
-        gameDisplay.blit(DC, ((display_width / 2)-638/2, 30))
+        gameDisplay.blit(DC, ((display_width / 2) - 638 / 2, 30))
         large_Text = pygame.font.SysFont("Cooper Black", 80)
         Text_Surf, Text_Rect = text_objects("Stay away from COVID", large_Text, white)
         Text_Rect.center = ((display_width / 2), (display_height / 2))
         gameDisplay.blit(Text_Surf, Text_Rect)
 
         button("GO!", (display_width / 2) - 250, 600, 100, 50, green, bright_green, game_loop)
-        button("Quit", (display_width / 2) + 250-100, 600, 100, 50, red, bright_red, quitgame)
+        button("Quit", (display_width / 2) + 250 - 100, 600, 100, 50, red, bright_red, quit_game)
 
         # pygame.draw.rect(gameDisplay, red, (550, 450, 100, 50))
         pygame.display.update()
-        clock.tick(15)
+        clock.tick(10)
 
 
 # GAME SECTION
 def game_loop():
-
     global pause
 
     pygame.mixer.Sound.play(point)
@@ -217,10 +220,9 @@ def game_loop():
     x_change = 0
 
     # virus object details
-
     thing_startx = random.randrange(0, display_width)
     thing_starty = -600
-    thing_speed = 7
+    thing_speed = 1
     thing_width = 90
     thing_height = 75
 
@@ -260,7 +262,7 @@ def game_loop():
     while not Game_Exit:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
-                quitgame()
+                quit_game()
 
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_LEFT:
@@ -359,10 +361,8 @@ def game_loop():
                     and police_status:
                 police_fire()
 
-                ############
                 pygame.mixer.music.load('gallery/audio/jazz.wav')
                 pygame.mixer.music.play(-1)
-                ############
 
                 dodged = int(dodged / 1.5)
 
@@ -376,7 +376,6 @@ def game_loop():
             if health_startx < x < health_startx + health_width and health_status \
                     or health_startx < x + player_width < health_startx + health_width \
                     and health_status:
-                # print('health_x crossover')
                 power()
 
                 pygame.mixer.music.load('gallery/audio/jazz.wav')
@@ -405,7 +404,6 @@ def game_loop():
         clock.tick(FPS)
 
 
-# Let's start our COVID Race Game
 game_intro()
 game_loop()
-quitgame()
+quit_game()
