@@ -36,7 +36,7 @@ dead = pygame.mixer.Sound("gallery/audio/dead.wav")
 point = pygame.mixer.Sound("gallery/audio/point.wav")
 
 # required sprites
-BACKGROUND = pygame.image.load('gallery/sprites/background.jpg').convert()
+BACKGROUND = pygame.image.load('gallery/sprites/background_n.png').convert()
 DC = pygame.image.load('gallery/sprites/minh_and_ilia.png').convert_alpha()
 virus = pygame.image.load('gallery/sprites/virus.png').convert_alpha()
 health = pygame.image.load('gallery/sprites/health.png').convert_alpha()
@@ -96,8 +96,8 @@ def crash():
 
         # gameDisplay.fill(white)
 
-        button("Play Again", 150, 450, 100, 50, green, bright_green, game_loop)
-        button("Quit", 550, 450, 100, 50, red, bright_red, quitgame)
+        button("Play Again", (display_width / 2) - 250, 600, 100, 50, green, bright_green, game_loop)
+        button("Quit", (display_width / 2) + 250-100, 600, 100, 50, red, bright_red, quitgame)
 
         pygame.display.update()
         clock.tick(15)
@@ -155,8 +155,8 @@ def paused():
                     unpause()
 
         # gameDisplay.fill(white)
-        button("Continue", 150, 450, 100, 50, green, bright_green, unpause)
-        button("Quit", 550, 450, 100, 50, red, bright_red, quitgame)
+        button("Continue", (display_width / 2) - 250, 450, 100, 50, green, bright_green, unpause)
+        button("Quit", (display_width / 2) + 250-100, 450, 100, 50, red, bright_red, quitgame)
 
         pygame.display.update()
         clock.tick(15)
@@ -185,14 +185,14 @@ def game_intro():
                 quitgame()
 
         gameDisplay.fill(black)
-        gameDisplay.blit(DC, (100, 90))
-        largeText = pygame.font.SysFont("Cooper Black", 95)
-        TextSurf, TextRect = text_objects("Race", largeText, white)
-        TextRect.center = ((display_width / 2), (display_height / 2))
-        gameDisplay.blit(TextSurf, TextRect)
+        gameDisplay.blit(DC, ((display_width / 2)-638/2, 30))
+        large_Text = pygame.font.SysFont("Cooper Black", 80)
+        Text_Surf, Text_Rect = text_objects("Stay away from COVID", large_Text, white)
+        Text_Rect.center = ((display_width / 2), (display_height / 2))
+        gameDisplay.blit(Text_Surf, Text_Rect)
 
-        button("GO!", 150, 450, 100, 50, green, bright_green, game_loop)
-        button("Quit", 450, 450, 100, 50, red, bright_red, quitgame)
+        button("GO!", (display_width / 2) - 250, 600, 100, 50, green, bright_green, game_loop)
+        button("Quit", (display_width / 2) + 250-100, 600, 100, 50, red, bright_red, quitgame)
 
         # pygame.draw.rect(gameDisplay, red, (550, 450, 100, 50))
         pygame.display.update()
