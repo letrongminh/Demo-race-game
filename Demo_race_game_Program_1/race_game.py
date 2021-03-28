@@ -43,7 +43,7 @@ dead = pygame.mixer.Sound(f"{audio_path}/dead.wav")
 point = pygame.mixer.Sound(f"{audio_path}/point.wav")
 
 # required sprites
-BACKGROUND = pygame.image.load(f"{sprite_path}/background_n.jpg").convert()
+BACKGROUND = pygame.image.load(f"{sprite_path}/background_n.png").convert()
 DC = pygame.image.load(f"{sprite_path}/minh_and_ilia.png").convert_alpha()
 virus = pygame.image.load(f"{sprite_path}/virus3.png").convert_alpha()
 health = pygame.image.load(f"{sprite_path}/health.png").convert_alpha()
