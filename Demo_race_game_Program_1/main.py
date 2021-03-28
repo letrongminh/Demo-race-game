@@ -12,12 +12,12 @@ ENABLE_CAPTURE = False
 # Declare a list and load the templates. If you are using more templates
 # then you have to load them here.
 template_list = list()
-template_list.append(cv2.imread('tay__1.jpg'))
-template_list.append(cv2.imread('tay__2.jpg'))
-template_list.append(cv2.imread('tay__3.jpg'))
-template_list.append(cv2.imread('tay__4.jpg'))
-template_list.append(cv2.imread('tay__5.jpg'))
-template_list.append(cv2.imread('tay__6.jpg'))
+template_list.append(cv2.imread("tay__1.jpg"))
+template_list.append(cv2.imread("tay__2.jpg"))
+template_list.append(cv2.imread("tay__3.jpg"))
+template_list.append(cv2.imread("tay__4.jpg"))
+template_list.append(cv2.imread("tay__5.jpg"))
+template_list.append(cv2.imread("tay__6.jpg"))
 
 # Open a webcam streaming
 video_capture = cv2.VideoCapture(0)  # Open the webcam
@@ -48,10 +48,17 @@ while True:
     if frame is None:
         break  # check for empty frames
     # Return the binary mask from the back projection algorithm
-    frame_mask = my_back_detector.returnMask(frame, morph_opening=True, blur=True, kernel_size=5, iterations=2)
-    if my_mask_analyser.returnNumberOfContours(frame_mask) > 0 and ENABLE_CAPTURE is True:
+    frame_mask = my_back_detector.returnMask(
+        frame, morph_opening=True, blur=True, kernel_size=5, iterations=2
+    )
+    if (
+        my_mask_analyser.returnNumberOfContours(frame_mask) > 0
+        and ENABLE_CAPTURE is True
+    ):
         x_center, y_center = my_mask_analyser.returnMaxAreaCenter(frame_mask)
-        x_rect, y_rect, w_rect, h_rect = my_mask_analyser.returnMaxAreaRectangle(frame_mask)
+        x_rect, y_rect, w_rect, h_rect = my_mask_analyser.returnMaxAreaRectangle(
+            frame_mask
+        )
         area = w_rect * h_rect
         cv2.circle(frame, (x_center, y_center), 3, [0, 255, 0], 5)
         # Check the position of the target and press the keys
@@ -76,17 +83,29 @@ while True:
             # ui.write(e.EV_KEY, e.KEY_UP, 0)
         # ui.syn()
 
-    cv2.line(frame, (int(cam_w / 2) - offset, 0), (int(cam_w / 2) - offset, cam_h), [0, 0, 255], 2)  # horizontal
-    cv2.line(frame, (int(cam_w / 2) + offset, 0), (int(cam_w / 2) + offset, cam_h), [0, 0, 255], 2)
+    cv2.line(
+        frame,
+        (int(cam_w / 2) - offset, 0),
+        (int(cam_w / 2) - offset, cam_h),
+        [0, 0, 255],
+        2,
+    )  # horizontal
+    cv2.line(
+        frame,
+        (int(cam_w / 2) + offset, 0),
+        (int(cam_w / 2) + offset, cam_h),
+        [0, 0, 255],
+        2,
+    )
 
     # Showing the frame and waiting for the exit command
     frame = cv2.flip(frame, 1)
     frame_mask = cv2.flip(frame_mask, 1)
-    cv2.imshow('frame - training', frame)  # show on window
-    cv2.imshow('Mask', frame_mask)  # show on window
-    if cv2.waitKey(1) & 0xFF == ord('q'):
+    cv2.imshow("frame - training", frame)  # show on window
+    cv2.imshow("Mask", frame_mask)  # show on window
+    if cv2.waitKey(1) & 0xFF == ord("q"):
         break  # Exit when Q is pressed
-    if cv2.waitKey(33) == ord('a'):
+    if cv2.waitKey(33) == ord("a"):
         if ENABLE_CAPTURE is True:
             print("Disabling capture...")
             ENABLE_CAPTURE = False
@@ -100,4 +119,3 @@ while True:
 # Release the camera
 video_capture.release()
 print("Bye")
-

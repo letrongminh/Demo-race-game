@@ -1,8 +1,4 @@
-# exec(open('main.py').read())
-# exec(open('race_game.py').read())
+import subprocess
 
-from subprocess import *
-import time
-Popen('python main.py')
-# time.sleep(1)
-Popen('python race_game.py')
+subprocess.Popen("python main.py")
+subprocess.Popen("python race_game.py")
