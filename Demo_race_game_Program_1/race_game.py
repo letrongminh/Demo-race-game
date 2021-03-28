@@ -1,4 +1,5 @@
 # import required packages
+import os
 import pygame
 import time
 import random
@@ -25,26 +26,32 @@ player_width = 68
 
 # set the screen size
 gameDisplay = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
-pygame.display.set_caption('Race')
+pygame.display.set_caption("Race")
 clock = pygame.time.Clock()
 
+# use relative path to resources
+file_path = os.path.dirname(__file__)
+gallery_path = os.path.join(file_path, "gallery")
+sprite_path = os.path.join(gallery_path, "sprites")
+audio_path = os.path.join(gallery_path, "audio")
+
 # required audio files
-crash_sound = pygame.mixer.Sound("gallery/audio/crash.wav")
-power_up = pygame.mixer.Sound("gallery/audio/Powerup.wav")
-police_hit = pygame.mixer.Sound("gallery/audio/hit.wav")
-dead = pygame.mixer.Sound("gallery/audio/dead.wav")
-point = pygame.mixer.Sound("gallery/audio/point.wav")
+crash_sound = pygame.mixer.Sound(f"{audio_path}/crash.wav")
+power_up = pygame.mixer.Sound(f"{audio_path}/Powerup.wav")
+police_hit = pygame.mixer.Sound(f"{audio_path}/hit.wav")
+dead = pygame.mixer.Sound(f"{audio_path}/dead.wav")
+point = pygame.mixer.Sound(f"{audio_path}/point.wav")
 
 # required sprites
-BACKGROUND = pygame.image.load('gallery/sprites/background_n.png').convert()
-DC = pygame.image.load('gallery/sprites/minh_and_ilia.png').convert_alpha()
-virus = pygame.image.load('gallery/sprites/virus3.png').convert_alpha()
-health = pygame.image.load('gallery/sprites/health.png').convert_alpha()
-blank = pygame.image.load('gallery/sprites/blank.jpg').convert_alpha()
-police = pygame.image.load('gallery/sprites/police.png').convert_alpha()
-PLAYER = pygame.image.load('gallery/sprites/user11.png').convert_alpha()
+BACKGROUND = pygame.image.load(f"{sprite_path}/background.jpg").convert()
+DC = pygame.image.load(f"{sprite_path}/minhdeptrai.png").convert_alpha()
+virus = pygame.image.load(f"{sprite_path}/virus.png").convert_alpha()
+health = pygame.image.load(f"{sprite_path}/health.png").convert_alpha()
+blank = pygame.image.load(f"{sprite_path}/blank.jpg").convert_alpha()
+police = pygame.image.load(f"{sprite_path}/police.png").convert_alpha()
+PLAYER = pygame.image.load(f"{sprite_path}/user11.png").convert_alpha()
 
-game_Icon = pygame.image.load('gallery/sprites/user11.png')
+game_Icon = pygame.image.load(f"{sprite_path}/user11.png")
 pygame.display.set_icon(game_Icon)
 
 
@@ -80,7 +87,7 @@ def crash():
 
     time.sleep(2)
 
-    pygame.mixer.music.load('gallery/audio/dead.wav')
+    pygame.mixer.music.load(f"{audio_path}/dead.wav")
     pygame.mixer.music.play(-1)
 
     large_text = pygame.font.SysFont("Times New Roman", 88)
@@ -100,8 +107,26 @@ def crash():
 
         # gameDisplay.fill(white)
 
-        button("Play Again", (display_width / 2) - 250, 600, 100, 50, green, bright_green, game_loop)
-        button("Quit", (display_width / 2) + 250 - 100, 600, 100, 50, red, bright_red, quit_game)
+        button(
+            "Play Again",
+            (display_width / 2) - 250,
+            600,
+            100,
+            50,
+            green,
+            bright_green,
+            game_loop,
+        )
+        button(
+            "Quit",
+            (display_width / 2) + 250 - 100,
+            600,
+            100,
+            50,
+            red,
+            bright_red,
+            quit_game,
+        )
 
         pygame.display.update()
         clock.tick(10)
@@ -159,8 +184,26 @@ def paused():
                     unpause()
 
         # gameDisplay.fill(white)
-        button("Continue", (display_width / 2) - 250, 450, 100, 50, green, bright_green, unpause)
-        button("Quit", (display_width / 2) + 250 - 100, 450, 100, 50, red, bright_red, quit_game)
+        button(
+            "Continue",
+            (display_width / 2) - 250,
+            450,
+            100,
+            50,
+            green,
+            bright_green,
+            unpause,
+        )
+        button(
+            "Quit",
+            (display_width / 2) + 250 - 100,
+            450,
+            100,
+            50,
+            red,
+            bright_red,
+            quit_game,
+        )
 
         pygame.display.update()
         clock.tick(15)
@@ -195,8 +238,26 @@ def game_intro():
         Text_Rect.center = ((display_width / 2), (display_height / 2))
         gameDisplay.blit(Text_Surf, Text_Rect)
 
-        button("GO!", (display_width / 2) - 250, 600, 100, 50, green, bright_green, game_loop)
-        button("Quit", (display_width / 2) + 250 - 100, 600, 100, 50, red, bright_red, quit_game)
+        button(
+            "GO!",
+            (display_width / 2) - 250,
+            600,
+            100,
+            50,
+            green,
+            bright_green,
+            game_loop,
+        )
+        button(
+            "Quit",
+            (display_width / 2) + 250 - 100,
+            600,
+            100,
+            50,
+            red,
+            bright_red,
+            quit_game,
+        )
 
         # pygame.draw.rect(gameDisplay, red, (550, 450, 100, 50))
         pygame.display.update()
@@ -211,11 +272,11 @@ def game_loop():
     pygame.mixer.music.stop()
     time.sleep(1)
 
-    pygame.mixer.music.load('gallery/audio/jazz.wav')
+    pygame.mixer.music.load(f"{audio_path}/jazz.wav")
     pygame.mixer.music.play(-1)
 
-    x = (display_width * 0.45)
-    y = (display_height * 0.8)
+    x = display_width * 0.45
+    y = display_height * 0.8
 
     x_change = 0
 
@@ -279,7 +340,9 @@ def game_loop():
 
         x += x_change
 
-        if bgY < BACKGROUND.get_width() * -1:  # If our bg is at the -width then reset its position
+        if (
+            bgY < BACKGROUND.get_width() * -1
+        ):  # If our bg is at the -width then reset its position
             bgY = 0
 
         gameDisplay.blit(BACKGROUND, (0, bgY))
@@ -346,9 +409,12 @@ def game_loop():
             # print('y crossover')
 
             # player crossed virus w.r.t X-axis
-            if thing_startx < x < thing_startx + thing_width and player_safe is False \
-                    or thing_startx < x + player_width < thing_startx + thing_width \
-                    and player_safe is False:
+            if (
+                thing_startx < x < thing_startx + thing_width
+                and player_safe is False
+                or thing_startx < x + player_width < thing_startx + thing_width
+                and player_safe is False
+            ):
                 # print('x crossover')
                 crash()
 
@@ -356,12 +422,15 @@ def game_loop():
         if y < police_starty + police_height:  # player crossed police w.r.t Y-axis
 
             # player crossed police w.r.t X-axis
-            if police_startx < x < police_startx + police_width and police_status \
-                    or police_startx < x + player_width < police_startx + police_width \
-                    and police_status:
+            if (
+                police_startx < x < police_startx + police_width
+                and police_status
+                or police_startx < x + player_width < police_startx + police_width
+                and police_status
+            ):
                 police_fire()
 
-                pygame.mixer.music.load('gallery/audio/jazz.wav')
+                pygame.mixer.music.load(f"{audio_path}/jazz.wav")
                 pygame.mixer.music.play(-1)
 
                 dodged = int(dodged / 1.5)
@@ -373,12 +442,15 @@ def game_loop():
         if y < health_starty + health_height:  # player crossed health w.r.t Y-axis
 
             # player crossed health w.r.t X-axis
-            if health_startx < x < health_startx + health_width and health_status \
-                    or health_startx < x + player_width < health_startx + health_width \
-                    and health_status:
+            if (
+                health_startx < x < health_startx + health_width
+                and health_status
+                or health_startx < x + player_width < health_startx + health_width
+                and health_status
+            ):
                 power()
 
-                pygame.mixer.music.load('gallery/audio/jazz.wav')
+                pygame.mixer.music.load(f"{audio_path}/jazz.wav")
                 pygame.mixer.music.play(-1)
 
                 player_safe = True
