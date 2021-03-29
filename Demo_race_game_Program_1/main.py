@@ -1,6 +1,7 @@
 #!/usr/bin/python
 
 import cv2
+import os
 from pynput.keyboard import Key, Controller
 from helper.color_detection import MultiBackProjectionColorDetector
 from helper.mask_analysis import BinaryMaskAnalyser
@@ -9,15 +10,22 @@ keyboard = Controller()
 # Enable or disable the keyboard simulation (enabled when press 'a')
 ENABLE_CAPTURE = False
 
+
+# use relative path to resources
+file_path = os.path.dirname(__file__)
+gallery_path = os.path.join(file_path, "gallery")
+hand_path = os.path.join(gallery_path, "hand_templates")
+
+
 # Declare a list and load the templates. If you are using more templates
 # then you have to load them here.
 template_list = list()
-template_list.append(cv2.imread("tay__1.jpg"))
-template_list.append(cv2.imread("tay__2.jpg"))
-template_list.append(cv2.imread("tay__3.jpg"))
-template_list.append(cv2.imread("tay__4.jpg"))
-template_list.append(cv2.imread("tay__5.jpg"))
-template_list.append(cv2.imread("tay__6.jpg"))
+template_list.append(cv2.imread(f"{hand_path}/tay__1.jpg"))
+template_list.append(cv2.imread(f"{hand_path}/tay__2.jpg"))
+template_list.append(cv2.imread(f"{hand_path}/tay__3.jpg"))
+template_list.append(cv2.imread(f"{hand_path}/tay__4.jpg"))
+template_list.append(cv2.imread(f"{hand_path}/tay__5.jpg"))
+template_list.append(cv2.imread(f"{hand_path}/tay__6.jpg"))
 
 # Open a webcam streaming
 video_capture = cv2.VideoCapture(0)  # Open the webcam
