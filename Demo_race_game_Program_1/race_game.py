@@ -9,7 +9,7 @@ pygame.init()
 # Global Variables
 FPS = 60
 SCREEN_WIDTH = 1200
-SCREEN_HEIGHT = 900
+SCREEN_HEIGHT = 800
 display_width = 1200
 display_height = 900
 pause = True
