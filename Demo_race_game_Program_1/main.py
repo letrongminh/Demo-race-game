@@ -20,12 +20,17 @@ hand_path = os.path.join(gallery_path, "hand_templates")
 # Declare a list and load the templates. If you are using more templates
 # then you have to load them here.
 template_list = list()
-template_list.append(cv2.imread(f"{hand_path}/tay__1.jpg"))
-template_list.append(cv2.imread(f"{hand_path}/tay__2.jpg"))
-template_list.append(cv2.imread(f"{hand_path}/tay__3.jpg"))
-template_list.append(cv2.imread(f"{hand_path}/tay__4.jpg"))
-template_list.append(cv2.imread(f"{hand_path}/tay__5.jpg"))
-template_list.append(cv2.imread(f"{hand_path}/tay__6.jpg"))
+# template_list.append(cv2.imread(f"{hand_path}/tay__1.jpg"))
+# template_list.append(cv2.imread(f"{hand_path}/tay__2.jpg"))
+# template_list.append(cv2.imread(f"{hand_path}/tay__3.jpg"))
+# template_list.append(cv2.imread(f"{hand_path}/tay__4.jpg"))
+# template_list.append(cv2.imread(f"{hand_path}/tay__5.jpg"))
+# template_list.append(cv2.imread(f"{hand_path}/tay__6.jpg"))
+
+template_list.append(cv2.imread(f"final_1.png"))
+template_list.append(cv2.imread(f"final_2.png"))
+template_list.append(cv2.imread(f"final_3.png"))
+template_list.append(cv2.imread(f"final_4.png"))
 
 # Open a webcam streaming
 video_capture = cv2.VideoCapture(0)  # Open the webcam

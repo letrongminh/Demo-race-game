@@ -4,11 +4,10 @@ import sys
 
 
 class BinaryMaskAnalyser:
-    """This class analyses binary masks, like the ones returned by
-       the color detection classes.
+    """This class analyses binary masks, like the ones returned by the color detection classes.
 
-    The class implements function for finding the contour with the
-    largest area and its properties (centre, surrounding rectangle).
+    The class implements function for finding the contour with the largest area and its properties
+    (centre, surrounding rectangle).
     There are also functions for noise removal.
     """
 
@@ -35,7 +34,7 @@ class BinaryMaskAnalyser:
         """it returns the centre of the contour with largest area.
  
         This method could be useful to find the center of a face when a skin detector filter is used.
-        @param mask the binary image to use in the function
+        @parameter mask the binary image to use in the function
         @return get the x and y center coords of the contour whit the largest area.
             In case of error it returns a tuple (None, None)
         """
@@ -94,10 +93,10 @@ class BinaryMaskAnalyser:
     def drawMaxAreaContour(self, frame, mask, color=[0, 255, 0], thickness=3):
         """it draws the contour with largest area.
  
-        @param frame the image to use as canvas
-        @param mask the binary image to use in the function
-        @param color the color of the contour
-        @param thickness of the contour 
+        @parameter frame the image to use as canvas
+        @parameter mask the binary image to use in the function
+        @parameter color the color of the contour
+        @parameter thickness of the contour
         """
         cnt = self.returnMaxAreaContour(mask)
         cv2.drawContours(frame, cnt, -1, color, thickness)
@@ -112,8 +111,7 @@ class BinaryMaskAnalyser:
     # cv2.contourArea(contour[, oriented]) → retval
 
     def matchMaxAreaWithShape(self, mask, shape):
-        """it returns a value which identify the similarity between
-            the largest area contour and a shape.
+        """it returns a value which identify the similarity between the largest area contour and a shape.
  
         The lower the result, the better match it is. It is calculated 
         based on the hu-moment values. For example if we have three shapes:
@@ -121,14 +119,14 @@ class BinaryMaskAnalyser:
         Matching Image A with itself = 0.0
         Matching Image A with Image B = 0.001946
         Matching Image A with Image C = 0.326911
-        @param mask the binary image to use in the function
-        @param shape the contour to compare
+        @parameter mask the binary image to use in the function
+        @parameter shape the contour to compare
         """
         cnt = self.returnMaxAreaContour(mask)
         return cv2.matchShapes(cnt, shape, 1, 0.0)
 
     def returnMaxAreaConvexHull(self, mask):
-        """it returns the convex hull sorrounding the contour with the largest area.
+        """it returns the convex hull surrounding the contour with the largest area.
  
         @param mask the binary image to use in the function
         @return get the coords of the convex hull

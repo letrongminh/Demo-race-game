@@ -11,18 +11,14 @@ class BackProjectionColorDetector:
     def setTemplate(self, frame):
         """Set the BGR image used as template during the pixel selection
 
-        The template can be a specific region of interest of the main
-        frame or a representative color scheme to identify. the template
-        is internally stored as an HSV image.
-        @param frame the template to use in the algorithm
-        """
+        The template can be a specific region of interest of the main frame or a representative color scheme to identify
+        the template is internally stored as an HSV image."""
+
         self.template_hsv = cv2.cvtColor(frame, cv2.COLOR_BGR2HSV)
 
     def getTemplate(self):
         """Get the BGR image used as template during the pixel selection
-
-        The template can be a specific region of interest of the main
-        frame or a representative color scheme to identify.
+        The template can be a specific region of interest of the main frame or a representative color scheme to identify
         """
         if self.template_hsv is None:
             return None
@@ -34,11 +30,12 @@ class BackProjectionColorDetector:
 
         @param frame the original frame (color)
         @param morph_opening it is a erosion followed by dilatation to remove noise
-        @param blur to smoth the image it is possible to apply Gaussian Blur
+        @param blur to smooth the image it is possible to apply Gaussian Blur
         @param kernel_size is the kernel dimension used for morph and blur
         """
         if self.template_hsv is None:
             return None
+
         # Get the mask from the internal function
         frame_threshold = self.returnMask(frame, morph_opening=morph_opening, blur=blur, kernel_size=kernel_size,
                                           iterations=iterations)
@@ -79,10 +76,10 @@ class BackProjectionColorDetector:
 
 
 class MultiBackProjectionColorDetector:
-    """Implementation of the Histogram Backprojection algorithm with multi-template.
+    """Implementation of the Histogram Back-projection algorithm with multi-template.
 
     This class is the reimplementation of the BackProjectionColorDetector class for
-    multi-template color detection. Instead of specifing a single template it is
+    multi-template color detection. Instead of specifying a single template it is
     possible to pass a list of templates, which can be multiple subframe taken from
     different part of an object. Multiple version of the Backprojection algorithm
     are then run at the same time and the filtered output added togheter. The result
@@ -109,8 +106,7 @@ class MultiBackProjectionColorDetector:
     def getTemplateList(self):
         """Get the BGR image list used as container for the templates
 
-        The template can be a spedific region of interest of the main
-        frame or a representative color scheme to identify.
+        Template can be a specific region of interest of the main frame or a representative color scheme to identify
         """
         output_list = list()
         for frame in self.template_hsv_list:
@@ -122,7 +118,7 @@ class MultiBackProjectionColorDetector:
 
         @param frame the original frame (color)
         @param morph_opening it is a erosion followed by dilatation to remove noise
-        @param blur to smoth the image it is possible to apply Gaussian Blur
+        @param blur to smooth the image it is possible to apply Gaussian Blur
         @param kernel_size is the kernel dimension used for morph and blur
         """
         if len(self.template_hsv_list) == 0:
@@ -206,41 +202,38 @@ class RangeColorDetector:
 
         The skin in channel H is characterized by values between 0 and 50,
         in the channel S from 0.23 to 0.68 (Asian and Caucasian).
-        @param range_min the minimum HSV value to use as filer
-        @param range_max the maximum HSV value to use as filter
+        @parameter min_range the minimum HSV value to use as filer
+        @parameter max_range the maximum HSV value to use as filter
         """
         # min and max range to use as filter for the detector (HSV)
         self.min_range = min_range
         self.max_range = max_range
 
     def getRange(self):
-        """Return the min and max range used in the skin detector
-
-        """
+        """Return the min and max range used in the skin detector"""
         return self.min_range, self.max_range
 
     def returnFiltered(self, frame, morph_opening=True, blur=True, kernel_size=5, iterations=1):
-        """Given an input frame return the filtered and denoised version.
+        """Given an input frame return the filtered and deionised version.
 
         @param frame the original frame (color)
         @param morph_opening it is a erosion followed by dilatation to remove noise
-        @param blur to smoth the image it is possible to apply Gaussian Blur
+        @param blur to smooth the image it is possible to apply Gaussian Blur
         @param kernel_size is the kernel dimension used for morph and blur
         @param iterations the number of time erode and dilate are called
         """
         frame_filtered = self.returnMask(frame, morph_opening=morph_opening, blur=blur, kernel_size=kernel_size,
                                          iterations=iterations)
         # bitwiseAND mask
-        frame_denoised = cv2.bitwise_and(frame, frame, mask=frame_filtered)
-        return frame_denoised
+        frame_deinoised = cv2.bitwise_and(frame, frame, mask=frame_filtered)
+        return frame_deinoised
 
-    def returnMask(self, frame, morph_opening = True, blur = True, kernel_size=5, iterations=1):
+    def returnMask(self, frame, morph_opening=True, blur=True, kernel_size=5, iterations=1):
         """Given an input frame return the black/white mask.
 
-        This version of the function does not use the blur and bitwise
-        operations, then the resulting frame contains white pixels
+        the function does not use the blur and bitwise operations, then the resulting frame contains white pixels
         in correspondence of the skin found during the searching process.
-        @param frame the original frame (color)
+        @parameter frame is the original frame (color)
         """
         # Convert to HSV and eliminate pixels outside the range
         frame_hsv = cv2.cvtColor(frame, cv2.COLOR_BGR2HSV)

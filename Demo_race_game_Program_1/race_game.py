@@ -22,7 +22,7 @@ bright_red = (255, 0, 0)
 bright_green = (0, 255, 0)
 block_color = (53, 115, 255)
 
-player_width = 68
+player_width = 60
 
 # set the screen size
 gameDisplay = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
@@ -57,8 +57,8 @@ pygame.display.set_icon(game_Icon)
 
 # shows PLAYER strength value
 def things_dodged(count):
-    font = pygame.font.SysFont("Times New Roman", 15)
-    text = font.render("  STRENGTH   " + str(count), True, bright_red)
+    font = pygame.font.SysFont("Times New Roman", 25)
+    text = font.render("  STRENGTH   " + str(count), True, white)
     gameDisplay.blit(text, (12, 5))
 
 
@@ -91,7 +91,7 @@ def crash():
     pygame.mixer.music.play(-1)
 
     large_text = pygame.font.SysFont("Times New Roman", 88)
-    text_surf, text_rect = text_objects("YOU ARE DEAD!", large_text, black)
+    text_surf, text_rect = text_objects("YOU ARE DEAD!", large_text, white)
     text_rect.center = ((display_width / 2), (display_height / 2))
     gameDisplay.blit(text_surf, text_rect)
 
@@ -107,29 +107,12 @@ def crash():
 
         # gameDisplay.fill(white)
 
-        button(
-            "Play Again",
-            (display_width / 2) - 250,
-            600,
-            100,
-            50,
-            green,
-            bright_green,
-            game_loop,
-        )
-        button(
-            "Quit",
-            (display_width / 2) + 250 - 100,
-            600,
-            100,
-            50,
-            red,
-            bright_red,
-            quit_game,
-        )
+        button("Play Again", (display_width / 2) - 250, 600, 100, 50, green, bright_green, game_loop)
+
+        button("Quit", (display_width / 2) + 250 - 100, 600, 100, 50, red, bright_red, quit_game)
 
         pygame.display.update()
-        clock.tick(10)
+        clock.tick(FPS)
 
 
 # required buttons
@@ -145,10 +128,10 @@ def button(msg, x, y, w, h, ic, ac, action=None):
     else:
         pygame.draw.rect(gameDisplay, ic, (x, y, w, h))
 
-    smallText = pygame.font.SysFont("Times New Roman", 20)
-    textSurf, textRect = text_objects(msg, smallText)
-    textRect.center = ((x + (w / 2)), (y + (h / 2)))
-    gameDisplay.blit(textSurf, textRect)
+    small_Text = pygame.font.SysFont("Times New Roman", 20)
+    text_Surf, text_Rect = text_objects(msg, small_Text)
+    text_Rect.center = ((x + (w / 2)), (y + (h / 2)))
+    gameDisplay.blit(text_Surf, text_Rect)
 
 
 # close the game
@@ -169,10 +152,10 @@ def unpause():
 def paused():
     pygame.mixer.music.pause()
 
-    largeText = pygame.font.SysFont("comicsansms", 50)
-    TextSurf, TextRect = text_objects("Paused", largeText)
-    TextRect.center = ((display_width / 2), (display_height / 2))
-    gameDisplay.blit(TextSurf, TextRect)
+    large_Text = pygame.font.SysFont("comicsansms", 50)
+    Text_Surf, Text_Rect = text_objects("Paused", large_Text)
+    Text_Rect.center = ((display_width / 2), (display_height / 2))
+    gameDisplay.blit(Text_Surf, Text_Rect)
 
     while pause:
         for event in pygame.event.get():
@@ -184,29 +167,12 @@ def paused():
                     unpause()
 
         # gameDisplay.fill(white)
-        button(
-            "Continue",
-            (display_width / 2) - 250,
-            450,
-            100,
-            50,
-            green,
-            bright_green,
-            unpause,
-        )
-        button(
-            "Quit",
-            (display_width / 2) + 250 - 100,
-            450,
-            100,
-            50,
-            red,
-            bright_red,
-            quit_game,
-        )
+        button("Continue", (display_width / 2) - 250, 450, 100, 50, green, bright_green, unpause)
+
+        button("Quit", (display_width / 2) + 250 - 100, 450, 100, 50, red, bright_red, quit_game)
 
         pygame.display.update()
-        clock.tick(15)
+        clock.tick(FPS)
 
 
 # audio when PLAYER touches health
@@ -238,30 +204,13 @@ def game_intro():
         Text_Rect.center = ((display_width / 2), (display_height / 2))
         gameDisplay.blit(Text_Surf, Text_Rect)
 
-        button(
-            "GO!",
-            (display_width / 2) - 250,
-            600,
-            100,
-            50,
-            green,
-            bright_green,
-            game_loop,
-        )
-        button(
-            "Quit",
-            (display_width / 2) + 250 - 100,
-            600,
-            100,
-            50,
-            red,
-            bright_red,
-            quit_game,
-        )
+        button("GO!", (display_width / 2) - 250, 600, 100, 50, green, bright_green, game_loop)
+
+        button("Quit", (display_width / 2) + 250 - 100, 600, 100, 50, red, bright_red, quit_game, )
 
         # pygame.draw.rect(gameDisplay, red, (550, 450, 100, 50))
         pygame.display.update()
-        clock.tick(10)
+        clock.tick(FPS)  # 120 frames per second
 
 
 # GAME SECTION
@@ -283,18 +232,17 @@ def game_loop():
     # virus object details
     thing_startx = random.randrange(0, display_width)
     thing_starty = -600
-    thing_speed = 1
-    thing_width = 90
-    thing_height = 75
+    thing_speed = 2
+    thing_width = 50
+    thing_height = 50
 
     # thingCount = 1
 
     # health object details
-
     health_startx = random.randrange(0, display_width)
     health_starty = -600
-    health_width = 52
-    health_height = 74
+    health_width = 50
+    health_height = 50
     health_speed = 3
 
     # police object details
@@ -340,9 +288,7 @@ def game_loop():
 
         x += x_change
 
-        if (
-            bgY < BACKGROUND.get_width() * -1
-        ):  # If our bg is at the -width then reset its position
+        if bgY < BACKGROUND.get_width() * -1:  # If our bg is at the -width then reset its position
             bgY = 0
 
         gameDisplay.blit(BACKGROUND, (0, bgY))
@@ -410,10 +356,10 @@ def game_loop():
 
             # player crossed virus w.r.t X-axis
             if (
-                thing_startx < x < thing_startx + thing_width
-                and player_safe is False
-                or thing_startx < x + player_width < thing_startx + thing_width
-                and player_safe is False
+                    thing_startx < x < thing_startx + thing_width
+                    and player_safe is False
+                    or thing_startx < x + player_width < thing_startx + thing_width
+                    and player_safe is False
             ):
                 # print('x crossover')
                 crash()
@@ -423,10 +369,10 @@ def game_loop():
 
             # player crossed police w.r.t X-axis
             if (
-                police_startx < x < police_startx + police_width
-                and police_status
-                or police_startx < x + player_width < police_startx + police_width
-                and police_status
+                    police_startx < x < police_startx + police_width
+                    and police_status
+                    or police_startx < x + player_width < police_startx + police_width
+                    and police_status
             ):
                 police_fire()
 
@@ -443,10 +389,10 @@ def game_loop():
 
             # player crossed health w.r.t X-axis
             if (
-                health_startx < x < health_startx + health_width
-                and health_status
-                or health_startx < x + player_width < health_startx + health_width
-                and health_status
+                    health_startx < x < health_startx + health_width
+                    and health_status
+                    or health_startx < x + player_width < health_startx + health_width
+                    and health_status
             ):
                 power()
 
