@@ -33,7 +33,7 @@ def update_frame():
     canvas.create_image(0, 0, image=photo, anchor=tkinter.NW)
     main_windows.after(1, update_frame)  # after 1 ms, refresh frame.
 
-    if 0 < counting < 4:
+    if 0 < counting < 5:
         time.sleep(0.1)  # If don't wait, the image will be dark
         return_value, image = camera.read()
         cv2.imwrite(f"hand_{counting}.png", image)
@@ -43,7 +43,7 @@ def update_frame():
         cv2.imwrite(f"final_{counting}.png", face)
         os.remove(f"hand_{counting}.png")
         counting += 1
-    elif counting > 4:
+    elif counting >= 5:
         main_windows.quit()
 #
 # # camera.release()
