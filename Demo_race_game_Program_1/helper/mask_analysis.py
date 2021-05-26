@@ -4,11 +4,8 @@ import numpy as np
 
 class BinaryMaskAnalyser:
     """This class analyses binary masks, like the ones returned by the color detection classes.
-
     The class implements function for finding the contour with the largest area and its properties
-    (centre, surrounding rectangle).
-    There are also functions for noise removal.
-    """
+    (centre, surrounding rectangle). There are also functions for noise removal."""
 
     def returnNumberOfContours(self, mask):
         """it returns the total number of contours present on the mask this method must be used during video analysis
@@ -30,9 +27,9 @@ class BinaryMaskAnalyser:
         """it returns the centre of the contour with largest area.
  
         This method could be useful to find the center of a face when a skin detector filter is used.
-        @parameter mask the binary image to use in the function
+        @para mask the binary image to use in the function
         @return get the x and y center coords of the contour whit the largest area.
-            In case of error it returns a tuple (None, None)"""
+        In case of error it returns a tuple (None, None)"""
         if mask is None:
             return None, None
         mask = np.copy(mask)
@@ -60,7 +57,7 @@ class BinaryMaskAnalyser:
     def returnMaxAreaContour(self, mask):
         """it returns the contour with largest area.
         This method could be useful to find a face when a skin detector filter is used.
-        @parameter mask the binary image to use in the function
+        @param mask the binary image to use in the function
         @return get the x and y center coords of the contour whit the largest area 
         """
         if mask is None:
@@ -83,11 +80,10 @@ class BinaryMaskAnalyser:
     def drawMaxAreaContour(self, frame, mask, color=None, thickness=3):
         """it draws the contour with largest area.
  
-        @parameter frame the image to use as canvas
-        @parameter mask the binary image to use in the function
-        @parameter color the color of the contour
-        @parameter thickness of the contour
-        """
+        @param frame the image to use as canvas
+        @param mask the binary image to use in the function
+        @param color the color of the contour
+        @param thickness of the contour"""
         if color is None:
             color = [0, 255, 0]
         cnt = self.returnMaxAreaContour(mask)
