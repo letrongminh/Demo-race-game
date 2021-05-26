@@ -106,9 +106,7 @@ def crash():
                     game_loop()
 
         # gameDisplay.fill(white)
-
         button("Play Again", (display_width / 2) - 250, 600, 100, 50, green, bright_green, game_loop)
-
         button("Quit", (display_width / 2) + 250 - 100, 600, 100, 50, red, bright_red, quit_game)
 
         pygame.display.update()
@@ -119,7 +117,7 @@ def crash():
 def button(msg, x, y, w, h, ic, ac, action=None):
     mouse = pygame.mouse.get_pos()
     click = pygame.mouse.get_pressed()
-    # print(click)
+
     if x + w > mouse[0] > x and y + h > mouse[1] > y:
         pygame.draw.rect(gameDisplay, ac, (x, y, w, h))
 
@@ -128,10 +126,10 @@ def button(msg, x, y, w, h, ic, ac, action=None):
     else:
         pygame.draw.rect(gameDisplay, ic, (x, y, w, h))
 
-    small_Text = pygame.font.SysFont("Times New Roman", 20)
-    text_Surf, text_Rect = text_objects(msg, small_Text)
-    text_Rect.center = ((x + (w / 2)), (y + (h / 2)))
-    gameDisplay.blit(text_Surf, text_Rect)
+    small_text = pygame.font.SysFont("Times New Roman", 20)
+    text_surf, text_rect = text_objects(msg, small_text)
+    text_rect.center = ((x + (w / 2)), (y + (h / 2)))
+    gameDisplay.blit(text_surf, text_rect)
 
 
 # close the game
@@ -144,7 +142,6 @@ def quit_game():
 def unpause():
     global pause
     pygame.mixer.music.unpause()
-
     pause = False
 
 
@@ -152,10 +149,10 @@ def unpause():
 def paused():
     pygame.mixer.music.pause()
 
-    large_Text = pygame.font.SysFont("comicsansms", 50)
-    Text_Surf, Text_Rect = text_objects("Paused", large_Text)
-    Text_Rect.center = ((display_width / 2), (display_height / 2))
-    gameDisplay.blit(Text_Surf, Text_Rect)
+    large_text = pygame.font.SysFont("comicsansms", 50)
+    text_surf, text_rect = text_objects("Paused", large_text)
+    text_rect.center = ((display_width / 2), (display_height / 2))
+    gameDisplay.blit(text_surf, text_rect)
 
     while pause:
         for event in pygame.event.get():
@@ -199,10 +196,10 @@ def game_intro():
 
         gameDisplay.fill(black)
         gameDisplay.blit(DC, ((display_width / 2) - 638 / 2, 30))
-        large_Text = pygame.font.SysFont("Cooper Black", 80)
-        Text_Surf, Text_Rect = text_objects("Stay away from COVID", large_Text, white)
-        Text_Rect.center = ((display_width / 2), (display_height / 2))
-        gameDisplay.blit(Text_Surf, Text_Rect)
+        large_text = pygame.font.SysFont("Cooper Black", 80)
+        text_surf, text_rect = text_objects("Stay away from COVID", large_text, white)
+        text_rect.center = ((display_width / 2), (display_height / 2))
+        gameDisplay.blit(text_surf, text_rect)
 
         button("GO!", (display_width / 2) - 250, 600, 100, 50, green, bright_green, game_loop)
 
@@ -258,8 +255,8 @@ def game_loop():
 
     # required variables
 
-    Game_Exit = False
-    bgY = 0
+    game_exit = False
+    background_y = 0
     player_safe = False
     health_checkpoint = 0
 
@@ -268,7 +265,7 @@ def game_loop():
     police_status = False
 
     # entire game loop
-    while not Game_Exit:
+    while not game_exit:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 quit_game()
@@ -288,12 +285,12 @@ def game_loop():
 
         x += x_change
 
-        if bgY < BACKGROUND.get_width() * -1:  # If our bg is at the -width then reset its position
-            bgY = 0
+        if background_y < BACKGROUND.get_width() * -1:  # If our bg is at the -width then reset its position
+            background_y = 0
 
-        gameDisplay.blit(BACKGROUND, (0, bgY))
+        gameDisplay.blit(BACKGROUND, (0, background_y))
 
-        bgY -= 2  # Move both background images back
+        background_y -= 2  # Move both background images back
 
         things(thing_startx, thing_starty, thing_width, thing_height, block_color)
 

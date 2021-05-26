@@ -78,7 +78,7 @@ while True:
             keyboard.release(Key.left)
             keyboard.release(Key.right)
 
-    # read line horizontal
+    # red line horizontal
     cv2.line(frame, (int(cam_w / 2) - offset, 0), (int(cam_w / 2) - offset, cam_h), [0, 0, 255], 2, )
     cv2.line(frame, (int(cam_w / 2) + offset, 0), (int(cam_w / 2) + offset, cam_h), [0, 0, 255], 2, )
 

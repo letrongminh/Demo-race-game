@@ -4,10 +4,10 @@ import os
 import tkinter
 import PIL.Image
 import PIL.ImageTk
+
 file_path = os.path.dirname(__file__)
 gallery_path = os.path.join(file_path, "gallery")
 hand_path = os.path.join(gallery_path, "hand_templates")
-
 
 main_windows = tkinter.Tk(className='open camera')
 camera = cv2.VideoCapture(0)
@@ -74,4 +74,3 @@ button.pack()
 main_windows.bind('<Return>', enter_to_do)
 update_frame()
 main_windows.mainloop()
-

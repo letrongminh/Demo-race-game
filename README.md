@@ -1,4 +1,9 @@
 # Demo race game
+- Idea:
+  
+    We're researching human-machine interaction through a game. 
+    This sets the stage for the use of more powerful algorithms in human-machine interaction.
+  
 
 - What is the game ?
 

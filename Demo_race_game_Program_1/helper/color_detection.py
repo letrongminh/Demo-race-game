@@ -1,6 +1,5 @@
-import numpy as np
 import cv2
-import sys
+import numpy as np
 
 
 class BackProjectionColorDetector:
@@ -52,25 +51,33 @@ class BackProjectionColorDetector:
         """
         if self.template_hsv is None:
             return None
+
         # Convert the input frame from BGR -> HSV
         frame_hsv = cv2.cvtColor(frame, cv2.COLOR_BGR2HSV)
+
         # Set the template histogram
         template_hist = cv2.calcHist([self.template_hsv], [0, 1], None, [180, 256], [0, 180, 0, 256])
+
         # Normalize the template histogram and apply backpropagation
         cv2.normalize(template_hist, template_hist, 0, 255, cv2.NORM_MINMAX)
         frame_hsv = cv2.calcBackProject([frame_hsv], [0, 1], template_hist, [0, 180, 0, 256], 1)
+
         # Get the kernel and apply a convolution
         kernel = cv2.getStructuringElement(cv2.MORPH_ELLIPSE, (kernel_size, kernel_size))
         frame_hsv = cv2.filter2D(frame_hsv, -1, kernel)
+
         # Applying the morph open operation (erosion followed by dilation)
         if morph_opening is True:
             kernel = np.ones((kernel_size, kernel_size), np.uint8)
             frame_hsv = cv2.morphologyEx(frame_hsv, cv2.MORPH_OPEN, kernel, iterations=iterations)
+
         # Applying Gaussian Blur
         if blur is True:
             frame_hsv = cv2.GaussianBlur(frame_hsv, (kernel_size, kernel_size), 0)
+
         # Get the threshold
         ret, frame_threshold = cv2.threshold(frame_hsv, 50, 255, 0)
+
         # Merge the threshold matrices
         return cv2.merge((frame_threshold, frame_threshold, frame_threshold))
 
@@ -80,25 +87,22 @@ class MultiBackProjectionColorDetector:
 
     This class is the reimplementation of the BackProjectionColorDetector class for
     multi-template color detection. Instead of specifying a single template it is
-    possible to pass a list of templates, which can be multiple subframe taken from
+    possible to pass a list of templates, which can be multiple sub-frame taken from
     different part of an object. Multiple version of the Backprojection algorithm
-    are then run at the same time and the filtered output added togheter. The result
+    are then run at the same time and the filtered output added together. The result
     of this process is much robust (but slower) than the standard class.
     """
 
     def __init__(self):
-        """Init the color detector object.
-
-    """
         self.template_hsv_list = list()
 
     def setTemplateList(self, frame_list):
         """Set the BGR image list used as container for the templates
 
-        The template can be a spedific region of interest of the main
+        The template can be a specific region of interest of the main
         frame or a representative color scheme to identify. the template
         is internally stored as an HSV image.
-        @param frame the template to use in the algorithm
+        @param frame_list the template to use in the algorithm
         """
         for frame in frame_list:
             self.template_hsv_list.append(cv2.cvtColor(frame, cv2.COLOR_BGR2HSV))
@@ -134,7 +138,7 @@ class MultiBackProjectionColorDetector:
 
         @param frame the original frame (color)
         @param morph_opening it is a erosion followed by dilatation to remove noise
-        @param blur to smoth the image it is possible to apply Gaussian Blur
+        @param blur to smooth the image it is possible to apply Gaussian Blur
         @param kernel_size is the kernel dimension used for morph and blur
         """
         if len(self.template_hsv_list) == 0:
@@ -165,7 +169,6 @@ class MultiBackProjectionColorDetector:
         # values added during the previous loop
         # Attention: here it is not necessary to normalize because the astype(np.uint8) method
         # will resize to 255 each value which is higher that that...
-        # cv2.normalize(mask, mask, 0, 255, cv2.NORM_MINMAX) #Not necessary
         ret, mask = cv2.threshold(mask.astype(np.uint8), 50, 255, 0)
         return cv2.merge((mask, mask, mask))
 
@@ -190,8 +193,8 @@ class RangeColorDetector:
         initialise the vectors in this range it is possible to write:
         min_range = numpy.array([0, 48, 80], dtype = "uint8")
         max_range = numpy.array([20, 255, 255], dtype = "uint8")
-        @param range_min the minimum HSV value to use as filer (numpy.array)
-        @param range_max the maximum HSV value to use as filter (numpy.array)
+        @param min_range the minimum HSV value to use as filer (numpy.array)
+        @param max_range the maximum HSV value to use as filter (numpy.array)
         """
         # min and max range to use as filter for the detector (HSV)
         self.min_range = min_range
