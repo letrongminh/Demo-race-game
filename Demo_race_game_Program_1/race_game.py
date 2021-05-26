@@ -1,3 +1,4 @@
+#!/usr/bin/python
 # import required packages
 import os
 import pygame
@@ -44,7 +45,7 @@ point = pygame.mixer.Sound(f"{audio_path}/point.wav")
 
 # required sprites
 BACKGROUND = pygame.image.load(f"{sprite_path}/background_n.png").convert()
-DC = pygame.image.load(f"{sprite_path}/minh_and_ilia.png").convert_alpha()
+DC = pygame.image.load(f"{sprite_path}/front_img.png").convert_alpha()
 virus = pygame.image.load(f"{sprite_path}/virus3.png").convert_alpha()
 health = pygame.image.load(f"{sprite_path}/health.png").convert_alpha()
 blank = pygame.image.load(f"{sprite_path}/blank.jpg").convert_alpha()
@@ -65,8 +66,6 @@ def things_dodged(count):
 # displays any objects if we need
 def things(thing_x, thing_y, thing_w, thing_h, color):
     pass
-    # virus = pygame.image.load('virus.png').convert()
-    # pygame.draw.rect(gameDisplay, color, [thingx, thingy, thingw, thingh])
 
 
 # set the PLAYER position
@@ -97,10 +96,8 @@ def crash():
 
     while True:
         for event in pygame.event.get():
-            # print(event)
             if event.type == pygame.QUIT:
-                pygame.quit()
-                # quit()
+                pygame.quit()  # quit()
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_SPACE:
                     game_loop()
@@ -190,22 +187,20 @@ def game_intro():
 
     while intro:
         for event in pygame.event.get():
-            # print(event)
             if event.type == pygame.QUIT:
                 quit_game()
 
-        gameDisplay.fill(black)
-        gameDisplay.blit(DC, ((display_width / 2) - 638 / 2, 30))
-        large_text = pygame.font.SysFont("Cooper Black", 80)
-        text_surf, text_rect = text_objects("Stay away from COVID", large_text, white)
-        text_rect.center = ((display_width / 2), (display_height / 2))
+        gameDisplay.fill(white)
+        gameDisplay.blit(DC, ((display_width / 2) - 940 / 2, 30))
+        large_text = pygame.font.SysFont("Cooper Black", 50)
+        text_surf, text_rect = text_objects("The project of Minh and Ilya", large_text, white)
+        text_rect.center = ((display_width / 2), (display_height / 2 - 120))
         gameDisplay.blit(text_surf, text_rect)
 
         button("GO!", (display_width / 2) - 250, 600, 100, 50, green, bright_green, game_loop)
 
         button("Quit", (display_width / 2) + 250 - 100, 600, 100, 50, red, bright_red, quit_game, )
 
-        # pygame.draw.rect(gameDisplay, red, (550, 450, 100, 50))
         pygame.display.update()
         clock.tick(FPS)  # 120 frames per second
 
