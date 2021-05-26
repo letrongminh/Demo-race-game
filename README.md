@@ -35,6 +35,7 @@
     + Pygame
     + OpenCV
     + Numpy
+
 Instructions on how to use:
 Important:
 Because the algorithm is greatly affected by light, the quality of camera hardware(light sensitivity, camera white balance...etc...) 
