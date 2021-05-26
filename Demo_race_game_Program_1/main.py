@@ -27,7 +27,7 @@ template_list.append(cv2.imread(f"{hand_path}/final_4.png"))
 video_capture = cv2.VideoCapture(0)
 # Reduce the size of the frame to 320x240
 video_capture.set(cv2.CAP_PROP_FRAME_WIDTH, 320)
-video_capture.set(cv2.CAP_PROP_FRAME_HEIGHT, 240)
+video_capture.set(cv2.CAP_PROP_FRAME_HEIGHT, 480)
 # Get the webcam resolution
 cam_w = int(video_capture.get(cv2.CAP_PROP_FRAME_WIDTH))
 cam_h = int(video_capture.get(cv2.CAP_PROP_FRAME_HEIGHT))
