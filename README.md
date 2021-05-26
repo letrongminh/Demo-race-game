@@ -59,4 +59,4 @@ Try to bump into vaccine vials on the road. If you have it, you won't get the vi
 Enjoy the game and remember to wear a mask when going to crowded places. Get vaccinated early.
 
 
-You can read more about how I learned and performed here.
+You can read more about how I learned and performed **[here](https://trongminhle.medium.com/i-learning-about-hand-detection-and-tracking-in-opencv-and-applied-it-to-control-characters-in-the-7a537d7ae8dc)**.
