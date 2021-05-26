@@ -113,8 +113,9 @@ class MultiBackProjectionColorDetector:
         Template can be a specific region of interest of the main frame or a representative color scheme to identify
         """
         output_list = list()
-        for frame in self.template_hsv_list:
-            output_list.append(cv2.cvtColor(frame, cv2.COLOR_HSV2BGR))
+        # for frame in self.template_hsv_list:
+        #     output_list.append(cv2.cvtColor(frame, cv2.COLOR_HSV2BGR))
+        output_list = [cv2.cvtColor(frame, cv2.COLOR_HSV2BGR) for frame in self.template_hsv_list]
         return output_list
 
     def returnFiltered(self, frame, morph_opening=True, blur=True, kernel_size=5, iterations=1):
@@ -176,21 +177,19 @@ class MultiBackProjectionColorDetector:
 class RangeColorDetector:
     """Using this detector it is possible to isolate colors in a specified range.
 
-    In this detector the frame given as input is filtered and the pixel which
-    fall in a specific range are taken, the other rejected. Some erosion and
-    dilatation operation are used in order to remove noise.
+    In this detector the frame given as input is filtered and the pixel which fall in a specific range are taken,
+    the other rejected. Some erosion and dilatation operation are used in order to remove noise.
     This class use the HSV (Hue, Saturation, Value) color representation to filter pixels.
-    The H and S components characterize the color (independent of illumination)
-    and V component specifies the illuminations.
-    """
+    The H and S components characterize the colour (independent of illumination) and the V component specifies
+    the illuminations."""
 
     def __init__(self, min_range, max_range):
         """Init the color detector object.
 
         The object must be initialised with an HSV range to use as filter.
-        Ex: skin color in channel H is characterized by values between [0, 20],
-        in the channel S=[48, 255] and V=[80, 255] (Asian and Caucasian). To
-        initialise the vectors in this range it is possible to write:
+        Ex: skin color in channel H is characterized by values between [0, 20], in the channel S=[48, 255]
+        and V=[80, 255] (Asian and Caucasian).
+        To initialise the vectors in this range it is possible to write:
         min_range = numpy.array([0, 48, 80], dtype = "uint8")
         max_range = numpy.array([20, 255, 255], dtype = "uint8")
         @param min_range the minimum HSV value to use as filer (numpy.array)
@@ -203,11 +202,10 @@ class RangeColorDetector:
     def setRange(self, min_range, max_range):
         """Set the min and max range used in the range detector
 
-        The skin in channel H is characterized by values between 0 and 50,
-        in the channel S from 0.23 to 0.68 (Asian and Caucasian).
+        The skin in channel H is characterized by values between 0 and 50, in the channel S from 0.23 to 0.68
+        (Asian and Caucasian).
         @parameter min_range the minimum HSV value to use as filer
-        @parameter max_range the maximum HSV value to use as filter
-        """
+        @parameter max_range the maximum HSV value to use as filter"""
         # min and max range to use as filter for the detector (HSV)
         self.min_range = min_range
         self.max_range = max_range
@@ -227,7 +225,6 @@ class RangeColorDetector:
         """
         frame_filtered = self.returnMask(frame, morph_opening=morph_opening, blur=blur, kernel_size=kernel_size,
                                          iterations=iterations)
-        # bitwiseAND mask
         frame_deinoised = cv2.bitwise_and(frame, frame, mask=frame_filtered)
         return frame_deinoised
 
