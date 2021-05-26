@@ -35,3 +35,25 @@
     + Pygame
     + OpenCV
     + Numpy
+Instructions on how to use:
+Important:
+Because the algorithm is greatly affected by light, the quality of camera hardware(light sensitivity, camera white balance...etc...) 
+      so when using it, it's best to use it in a place with bright light. 
+      Full and continuous light like sunlight. 
+      This helps to keep the light sensitivity and white balance of the camera hardware from being distorted while moving objects (your hands).
+      
+Use ***take_photos*** to capture your hand. Place your palm and the square in the center of the camera. Press enter or scroll to the "Capture" button and take the picture. 
+The camera will automatically take 4 pictures of your palm.
+
+Use ***running*** to initialize the hand and game recognizers.
+
+Press ***a*** to start recognizing your hand. Move your hand to make sure you have a good position to recognize the hand.
+
+Click ***Go*** to start playing the game.
+Move left and right to avoid evil viruses. Don't see the police because you're not wearing a mask.
+Try to bump into vaccine vials on the road. If you have it, you won't get the virus for a while (you have antibodies).
+
+Enjoy the game. And remember to wear a mask when going to crowded places. Get vaccinated early.
+
+
+You can read more about how I learned and performed here.
