@@ -7,14 +7,16 @@ class BackProjectionColorDetector:
     def __init__(self):
         self.template_hsv = None
 
-    def setTemplate(self, frame):
+    @classmethod
+    def setTemplate(cls, frame):
         """Set the BGR image used as template during the pixel selection
 
         The template can be a specific region of interest of the main frame or a representative color scheme to identify
         the template is internally stored as an HSV image."""
 
-        self.template_hsv = cv2.cvtColor(frame, cv2.COLOR_BGR2HSV)
+        cls.template_hsv = cv2.cvtColor(frame, cv2.COLOR_BGR2HSV)
 
+    @staticmethod
     def getTemplate(self):
         """Get the BGR image used as template during the pixel selection
         The template can be a specific region of interest of the main frame or a representative color scheme to identify
@@ -24,6 +26,7 @@ class BackProjectionColorDetector:
         else:
             return cv2.cvtColor(self.template_hsv, cv2.COLOR_HSV2BGR)
 
+    @staticmethod
     def returnFiltered(self, frame, morph_opening=True, blur=True, kernel_size=5, iterations=1):
         """Given an input frame in BGR return the filtered version.
 

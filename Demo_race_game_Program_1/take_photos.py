@@ -1,3 +1,4 @@
+#!/usr/bin/python
 import cv2
 import time
 import os
@@ -56,7 +57,8 @@ def update_frame():
         cv2.imwrite(f"hand_{counting}.png", image)
         image = cv2.imread(f"hand_{counting}.png")
         # crop frame for main file
-        face = image[140:340, 220:420]
+        face = image[150:300, 250:400]
+        # face = image[140:340, 220:420]
         # writing to path
         cv2.imwrite(f"{hand_path}/final_{counting}.png", face)
         # remove hands picture
